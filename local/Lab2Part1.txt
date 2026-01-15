@@ -1,0 +1,8 @@
+The motor testing script uses code directly from lecture 2.
+
+The script waits 2 seconds, then sets the duty cycles of the motor and servo to netural.
+Then, after 2 seconds, the motor runs at nearly max speed for 2 seconds and turns off (goes back to neutral).
+Then, the motor runs in reverse at nearly max speed for 2 seconds and stops.
+The servo then sweeps left, right, and back to the center, each taking 2 seconds.
+
+After, the PCA board data structure is "torn down" as lecture 2 states.
