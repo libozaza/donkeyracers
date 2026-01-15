@@ -19,9 +19,9 @@ extra_argument = args.extra_option
 
 # === Constants ===
 FREQ = 60 # Standard ESC expects 50-60Hz signal
-NETURAL = 1500
-MAX = 1900
-MIN = 1200
+NEUTRAL = int(1.5*65535/16.67)
+MAX = int(1.85*65535/16.67)
+MIN = int(1.2*65535/16.67)
 
 # === Setup I2C and PCA9685 ===
 i2c = busio.I2C(SCL, SDA)
@@ -32,36 +32,38 @@ pca.frequency = FREQ
 print("Waiting for 2 seconds")
 time.sleep(2)
 print("Starting testing script -- NEUTRAL")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.5*65535/16.67)
-pca.channels[SERVO_CHANNEL].duty_cycle = int(1.5*65535/16.67)
+pca.channels[ESC_CHANNEL].duty_cycle = NEUTRAL
+pca.channels[SERVO_CHANNEL].duty_cycle = NEUTRAL
 time.sleep(2)
 
 # === Run motor testing sequence ===
 print("Starting motor -- RUNNING AT MAX THROTTLE")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.7*65535/16.67)
+pca.channels[ESC_CHANNEL].duty_cycle = MAX
 time.sleep(2)
 print("Slowing motor -- BACK TO NEUTRAL")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.5*65535/16.67)
+pca.channels[ESC_CHANNEL].duty_cycle = NEUTRAL
 time.sleep(2)
 print("Entering Backward mode")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.2*65535/16.67)
-time.sleep(1)
+pca.channels[ESC_CHANNEL].duty_cycle = MIN
+time.sleep(0.5)
+pca.channels[ESC_CHANNEL].duty_cycle = NEUTRAL
+time.sleep(0.5)
 print("Reversing motor -- RUNNING AT MIN THROTTLE")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.2*65535/16.67)
+pca.channels[ESC_CHANNEL].duty_cycle = MIN
 time.sleep(2)
 print("Slowing motor -- BACK TO NEUTRAL")
-pca.channels[ESC_CHANNEL].duty_cycle = int(1.5*65535/16.67)
+pca.channels[ESC_CHANNEL].duty_cycle = NEUTRAL
 time.sleep(2)
 
 # === Run servo testing sequence ===
 print("Testing servo -- SWEEP LEFT")
-pca.channels[SERVO_CHANNEL].duty_cycle = int(1.2*65535/16.67)
+pca.channels[SERVO_CHANNEL].duty_cycle = MIN
 time.sleep(2)
 print("Testing servo -- SWEEP RIGHT")
-pca.channels[SERVO_CHANNEL].duty_cycle = int(1.8*65535/16.67)
+pca.channels[SERVO_CHANNEL].duty_cycle = MAX
 time.sleep(2)
 print("Testing servo -- BACK TO NEUTRAL")
-pca.channels[SERVO_CHANNEL].duty_cycle = int(1.5*65535/16.67)
+pca.channels[SERVO_CHANNEL].duty_cycle = NEUTRAL
 time.sleep(2)
 
 # === Tear down PCA board data structure ===
