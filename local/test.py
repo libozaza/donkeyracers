@@ -33,7 +33,7 @@ pca.channels[ESC_CHANNEL].duty_cycle = 5899
 time.sleep(2)
 
 # === Run motor testing sequence ===
-pca.channels[ESC_CHANNEL].duty_cycle = 7500
+pca.channels[ESC_CHANNEL].duty_cycle = 7700
 time.sleep(5)
 
 # === Tear down PCA board data structure ===
