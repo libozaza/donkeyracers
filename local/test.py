@@ -29,11 +29,12 @@ pca = PCA9685(i2c)
 pca.frequency = FREQ
 
 # === Give time for ESC to initialize ===
+pca.channels[ESC_CHANNEL].duty_cycle = 5899
 time.sleep(2)
 
 # === Run motor testing sequence ===
-pca.channels[ESC_CHANNEL].duty_cycle = 3500
-time.sleep(1)
+pca.channels[ESC_CHANNEL].duty_cycle = 7500
+time.sleep(5)
 
 # === Tear down PCA board data structure ===
 pca.deinit()
