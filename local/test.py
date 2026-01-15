@@ -39,7 +39,10 @@ time.sleep(2)
 # === Run motor testing sequence ===
 print("Starting motor -- RUNNING AT MAX THROTTLE")
 pca.channels[ESC_CHANNEL].duty_cycle = int(1.9*65535/16.67)
-time.sleep(5)
+time.sleep(2)
+print("Slowing motor -- BACK TO NEUTRAL")
+pca.channels[ESC_CHANNEL].duty_cycle = int(1.5*65535/16.67)
+time.sleep(2)
 
 # === Run servo testing sequence ===
 print("Testing servo -- SWEEP LEFT")
